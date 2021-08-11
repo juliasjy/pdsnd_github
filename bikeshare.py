@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Fri Aug  6 20:34:57 2021
+Created on Fri Aug 10 20:34:57 2021
 
-@author: jiayesu
+@author: Jiaye Su
 """
 
 import time
@@ -67,19 +67,19 @@ def load_data(city, month, day):
     Returns:
         df - Pandas DataFrame containing city data filtered by month and day
     """
-    df = pd.read_csv(CITY_DATA[city])
-    df['Start Time'] = pd.to_datetime(df['Start Time'])
-    df['month'] = df['Start Time'].dt.month
-    df['day_of_week'] = df['Start Time'].dt.weekday_name
+    df_city = pd.read_csv(CITY_DATA[city])
+    df_city['Start Time'] = pd.to_datetime(df_city['Start Time'])
+    df_city['month'] = df_city['Start Time'].dt.month
+    df_city['day_of_week'] = df_city['Start Time'].dt.weekday_name
     
     if month != 'all':
         months = ['january', 'february', 'march', 'april', 'may', 'june']
         month = months.index(month) + 1
-        df = df[df['month'] == month]
+        df_city = df_city[df_city['month'] == month]
 
     if day != 'all':
-        df = df[df['day_of_week'] == day.title()]
-    return df
+        df_city = df_city[df_city['day_of_week'] == day.title()]
+    return df_city
 
 
 def time_stats(df):
@@ -202,7 +202,7 @@ def display_data(df):
             if len(df_temp.index) != 0:
                 print(df_temp)
             else:
-                print('\n There is no more data to display.(The last reviewer said there is a problem with this, it should keep displaying. However, there is truely no more data, I don\'t think we should let people keep saying \'yes\'. Please let me know exactly how this is wrong instead of being more thoughtful.)')
+                print('\n There is no more data to display.(The last reviewer said there is a problem with this, it should keep displaying. However, there is truly no more data, I don\'t think we should let people keep saying \'yes\'. Please let me know exactly how this is wrong instead of being more thoughtful.)')
                 return
         else:
             return
